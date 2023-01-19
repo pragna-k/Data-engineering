@@ -1,0 +1,115 @@
+#include <stdio.h>
+#include<string.h>
+void main()
+{
+    char age[20][100]={"young","young","mid","adult","adult","adult","mid","young","young","adult","young","mid","mid","adult"};
+    char income[20][100]={"high","high","high","medium","low","low","low","medium","low","medium","medium","medium","high","medium"};
+    char student[20][100]={"no","no","no","no","yes","yes","yes","no","yes","yes","yes","no","yes","no"};
+    char credit_rating[20][100]={"fair","excellent","fair","fair","fair","excellent","excellent","fair","fair","fair","excellent","excellent","fair","excellent"};
+    char buys_computer[20][100]={"no","no","yes","yes","yes","no","yes","no","yes","yes","yes","yes","yes","no"};
+    printf("enter age,income,student,credit_rating to be classified");
+    char test_age[20],test_income[20],test_student[20],test_credit[20];
+    scanf("%s",test_age);
+    scanf("%s",test_income);
+    scanf("%s",test_student);
+    scanf("%s",test_credit);
+    float y=0,n=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(buys_computer[i],"yes")==0)
+        {
+            y=y+1;
+        }
+        else
+        {
+            n=n+1;
+        }
+    }
+float x11=0,x21=0,x12=0,x22=0,x13=0,x23=0,x14=0,x24=0;
+for(int i=0;i<14;i++)
+{
+    if(strcmp(age[i],test_age)==0)
+    {
+    if(strcmp(buys_computer[i],"yes")==0)
+    {
+        x11=x11+1;
+    }
+    else
+    {
+        x21=x21+1;
+    }
+    }
+}
+for(int i=0;i<14;i++)
+{
+    if(strcmp(income[i],test_income)==0)
+    {
+    if(strcmp(buys_computer[i],"yes")==0)
+    {
+        x12=x12+1;
+    }
+    else
+    {
+        x22=x22+1;
+    }
+    }
+}
+for(int i=0;i<14;i++)
+{
+    if(strcmp(student[i],test_student)==0)
+    {
+    if(strcmp(buys_computer[i],"yes")==0)
+    {
+        x13=x13+1;
+    }
+    else
+    {
+        x23=x23+1;
+    }
+    }
+}
+for(int i=0;i<14;i++)
+{
+    if(strcmp(credit_rating[i],test_credit)==0)
+    {
+    if(strcmp(buys_computer[i],"yes")==0)
+    {
+        x14=x14+1;
+    }
+    else
+    {
+        x24=x24+1;
+    }
+    }
+}
+x11=x11/y;
+x12=x12/y;
+x13=x13/y;
+x14=x14/y;
+x21=x21/n;
+x22=x22/n;
+x23=x23/n;
+x24=x24/n;
+float c1=y/14;
+float c2=n/14;
+printf("prior probabilities\n");
+printf("p(c1): %f\n",c1);
+printf("p(c2): %f\n",c2);
+float x_c1=x11*x12*x13*x14;
+float x_c2=x21*x22*x23*x24;
+printf("likelihood\n");
+printf("p(x/c1) :%f\n",x_c1);
+printf("p(x/c2) :%f\n",x_c2);
+float r1=x_c1*c1;
+float r2=x_c2*c2;
+printf("p(c1/x): %f\n",r1);
+printf("p(c2/x): %f\n",r2);
+if(r1>r2)
+{
+    printf("data classifed to 'YES' class");
+}
+else
+{
+    printf("data classified to 'NO' class");
+}
+}
