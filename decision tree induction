@@ -1,0 +1,121 @@
+#include <stdio.h>
+#include<string.h>
+#include<math.h>
+float info(char a[15][100],char c[15],float count,char b[15][100])
+{
+    float c1=0,c2=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(a[i],c)==0 && strcmp(b[i],"yes")==0)
+        {
+            c1++;
+        }
+         if(strcmp(a[i],c)==0 && strcmp(b[i],"no")==0)
+        {
+            c2++;
+        }
+    }
+    float r=0;
+    if(c1!=0 && c2!=0)
+   
+    {
+        r=((-c1/count)*log2(c1/count))+((-c2/count)*log2(c2/count));
+    }
+    return r;
+}
+int main()
+{
+    char age[20][100]={"young","young","mid","adult","adult","adult","mid","young","young","adult","young","mid","mid","adult"};
+    char income[20][100]={"high","high","high","medium","low","low","low","medium","low","medium","medium","medium","high","medium"};
+    char student[20][100]={"no","no","no","no","yes","yes","yes","no","yes","yes","yes","no","yes","no"};
+    char credit_rating[20][100]={"fair","excellent","fair","fair","fair","excellent","excellent","fair","fair","fair","excellent","excellent","fair","excellent"};
+    char buys_computer[20][100]={"no","no","yes","yes","yes","no","yes","no","yes","yes","yes","yes","yes","no"};
+    float y=0,n=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(buys_computer[i],"yes")==0)
+        {
+            y=y+1;
+        }
+        else
+        {
+            n=n+1;
+        }
+    }
+    float p_y=y/14,p_n=n/14;
+    float info_d=-p_y*(log2(p_y))+(-p_n*log2(p_n));
+    printf("%f\n",info_d);
+    float a1=0,a2=0,a3=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(age[i],"young")==0)
+        {
+            a1++;
+        }
+        else if(strcmp(age[i],"mid")==0)
+        {
+            a2++;
+        }
+        else
+        {
+            a3++;
+        }
+    }
+    float info_age=((a1/14)*info(age,"young",a1,buys_computer))+((a2/14)*info(age,"mid",a2,buys_computer))+((a3/14)*info(age,"adult",a3,buys_computer));
+    printf("%f",info_age);
+    float age_gain=info_d-info_age;
+    printf(" information gain due to age attribute %f",age_gain);
+    a1=0,a2=0,a3=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(income[i],"low")==0)
+        {
+            a1++;
+        }
+        else if(strcmp(income[i],"medium")==0)
+        {
+            a2++;
+        }
+        else
+        {
+            a3++;
+        }
+    }
+    float info_income=((a1/14)*info(income,"low",a1,buys_computer))+((a2/14)*info(income,"medium",a2,buys_computer))+((a3/14)*info(income,"high",a3,buys_computer));
+    printf("%f",info_income);
+    float income_gain=info_d-info_income;
+    printf(" information gain due to income attribute %f",income_gain);
+    a1=0,a2=0,a3=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(student[i],"yes")==0)
+        {
+            a1++;
+        }
+        else if(strcmp(student[i],"no")==0)
+        {
+            a2++;
+        }
+    }
+    float info_student=((a1/14)*info(student,"yes",a1,buys_computer))+((a2/14)*info(student,"no",a2,buys_computer));
+    printf("%f",info_age);
+    float student_gain=info_d-info_student;
+    printf(" information gain due to student attribute %f",student_gain);
+     a1=0,a2=0;
+    for(int i=0;i<14;i++)
+    {
+        if(strcmp(credit_rating[i],"fair")==0)
+        {
+            a1++;
+        }
+        else if(strcmp(credit_rating[i],"excellent")==0)
+        {
+            a2++;
+        }
+    }
+    float info_credit=((a1/14)*info(credit_rating,"fair",a1,buys_computer))+((a2/14)*info(credit_rating,"excellent",a2,buys_computer));
+    printf("%f",info_credit);
+    float credit_gain=info_d-info_credit;
+    printf(" information gain due to credit rating attribute %f",credit_gain);
+    return 0;
+}
